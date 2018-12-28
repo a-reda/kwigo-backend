@@ -1,0 +1,26 @@
+{
+  "name": "kwigo-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://a-reda@bitbucket.org/a-reda/kwigo-backend.git"
+  },
+  "keywords": [
+    "backend",
+    "graphql",
+    "apollo",
+    "redis"
+  ],
+  "author": "reda@aissaoui.org",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/a-reda/kwigo-backend#readme",
+  "dependencies": {
+    "apollo-server": "^2.3.1",
+    "graphql": "^14.0.2"
+  }
+}
