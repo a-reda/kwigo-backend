@@ -1,14 +1,12 @@
 
+const dbHost = 'mongodb://localhost:27017/kwigo';
+const dbUser = 'root';
+const dbPassword = 'example';
 
+module.exports =  {
 
-const dbHost = 'localhost';
-
-
-
-
-
-export default {
-
-   dbHost: dbHost
+   dbHost: dbHost,
+   dbUser: dbUser,
+   dbPassword: dbPassword
 
 }
