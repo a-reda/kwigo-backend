@@ -5,17 +5,28 @@ const config = require('./config')
 
 // GraphQL Definitions
 const typeDefs = require('./schema');
+const resolvers= require('./resolvers');
 
+const auth = require('./auth');
 
+// GraphQL datasources
+const userDS = require('./datasources/user-ds');
 
 // MongoDB Connection
-mongoose.connect(config.dbHost, {useNewUrlParser: true});
+mongoose.connect(config.dbUrl, {useNewUrlParser: true});
 
 mongoose.connection.on('open', () => console.log('DB CONNECTION OK'));
-mongoose.connection.on('error', () => console.log('DB CONNECTION ERROR'));
+mongoose.connection.on('error', (err) => console.log('DB CONNECTION ERROR ' + err));
 
 // GraphQL server boot
-const server = new ApolloServer({typeDefs});
+const server = new ApolloServer({
+  context: auth,      // Auth function 
+  typeDefs,
+  resolvers,
+  dataSources: () => ({
+    userDS: userDS
+  })
+});
 
 server.listen().then(({url}) => {
   console.log(`\n\n 🚀     Server ready at ${url} \n\n`);
