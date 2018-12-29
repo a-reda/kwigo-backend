@@ -24,9 +24,10 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
 
   node:
-    image: bitnami/node
+    image: node:8.15.0-alpine
     container_name: kwigo-backend
-    command: "sh -c 'apt-get update && apt-get install -y build-essential && apt-get install -y python && npm install && node index.js'"
+    command: "sh -c 'npm install && node index.js'"
+    working_dir: /app
     volumes:
       - ./:/app
     ports:
