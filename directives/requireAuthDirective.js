@@ -3,7 +3,6 @@ const { SchemaDirectiveVisitor, AuthenticationError} = require("apollo-server");
 class RequireAuthDirective extends SchemaDirectiveVisitor {
   visitFieldDefinition(field) {
     const { resolve = defaultFieldResolver } = field;
-
     field.resolve = async function(...args) {
       const [,,ctx] = args;
       if (ctx.user) {

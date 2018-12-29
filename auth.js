@@ -1,4 +1,4 @@
-
+var _ = require("lodash")
 var { checkToken } = require('./datasources/token-ds');
 
 
@@ -8,9 +8,12 @@ module.exports = async({ req }) => {
 
   if(token.length) {
       const user = await checkToken(token);
-      if(user) return Object.assign({}, req, {user: user})
-  }
 
-  // console.log(req.user);
+      if(user) {
+        delete user.password
+        return Object.assign({}, req, {user: user})
+      }
+  }
+  
   return req;
 }

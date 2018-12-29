@@ -22,3 +22,13 @@ services:
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
+
+
+  duckdns:
+     image: linuxserver/duckdns
+     container_name: duckdns
+     environment:
+       - TZ=Europe/Rome
+       - SUBDOMAINS=camus
+       - TOKEN=***REMOVED***
+     restart: always
