@@ -2,6 +2,8 @@ const {gql} = require('apollo-server');
 
 const typeDefs = gql`
 
+directive @requireAuth on FIELD_DEFINITION
+
 type User {
   id: ID!
   name: String
@@ -22,9 +24,9 @@ type ServerMessage {
   text: String
 }
 
-type Query {
+type Query  {
   user(id: ID!): User
-  trips: [Trip]
+  trips: [Trip] @requireAuth
   me: User
 }
 
@@ -32,12 +34,6 @@ type Mutation {
   createUser(email: String!, password: String!): ServerMessage!
   login(email: String!, password: String!): ServerMessage!
 }
-
-
 `
-
-
-
-
 
 module.exports = typeDefs;

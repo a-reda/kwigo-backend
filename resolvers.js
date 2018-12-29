@@ -12,7 +12,7 @@ module.exports = {
     },
     trips: (_, __, {dataSources}) => {
       return [{origin: "Milan", destination: "Padova"}] // Stub for testing
-    }
+    } 
   },
 
   Mutation: {

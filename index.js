@@ -11,6 +11,7 @@ const auth = require('./auth');
 
 // GraphQL datasources
 const userDS = require('./datasources/user-ds');
+const requireAuthDirective = require("./directives/requireAuthDirective");
 
 // MongoDB Connection
 mongoose.connect(config.dbUrl, {useNewUrlParser: true});
@@ -20,9 +21,12 @@ mongoose.connection.on('error', (err) => console.log('DB CONNECTION ERROR ' + er
 
 // GraphQL server boot
 const server = new ApolloServer({
-  context: auth,      // Auth function 
+  context: auth,      // Auth function
   typeDefs,
   resolvers,
+  schemaDirectives: {
+    requireAuth: requireAuthDirective
+  },
   dataSources: () => ({
     userDS: userDS
   })
