@@ -23,6 +23,15 @@ services:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
 
+  node:
+    image: bitnami/node
+    container_name: kwigo-backend
+    command: "sh -c 'npm install && node index.js'"
+    volumes:
+      - ./:/app
+    ports:
+      - 4000:4000
+
   duckdns:
      image: linuxserver/duckdns
      container_name: duckdns
