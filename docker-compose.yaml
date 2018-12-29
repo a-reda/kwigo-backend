@@ -24,7 +24,7 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
 
   node:
-    image: bitnami/node
+    image: bitnami/node:11-debian-9
     container_name: kwigo-backend
     command: "sh -c 'npm install && node index.js'"
     volumes:
