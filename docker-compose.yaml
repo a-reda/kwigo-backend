@@ -24,9 +24,9 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
 
   node:
-    image: bitnami/node:11-debian-9
+    image: bitnami/node
     container_name: kwigo-backend
-    command: "sh -c 'npm install && node index.js'"
+    command: "sh -c 'apt-get update && apt-get install -y build-essential && apt-get install -y python && npm install && node index.js'"
     volumes:
       - ./:/app
     ports:
@@ -39,4 +39,4 @@ services:
        - TZ=Europe/Rome
        - SUBDOMAINS=camus
        - TOKEN=***REMOVED***
-     restart: always
+     # restart: always
