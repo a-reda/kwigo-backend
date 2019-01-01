@@ -21,6 +21,13 @@ function createUser(email, password) {
   });
 }
 
+function getUserByToken(token) {
+  return Token.findOne({token: token}).then((res) => {
+    if(res) return User.findOne({email: res.email});
+    else return null;
+  });
+}
+
 function login(email, password) {
   return User.findOne({email: email}).then((user) => {
     if (user) {
@@ -51,6 +58,7 @@ function login(email, password) {
 module.exports = {
 
   getUserById: getUserById,
+  getUserByToken: getUserByToken,
   createUser:  createUser,
   login: login
 

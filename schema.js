@@ -26,6 +26,7 @@ type ServerMessage {
 
 type Query  {
   user(id: ID!): User
+  userByToken(token: String): User
   trips: [Trip] @requireAuth
   me: User
 }

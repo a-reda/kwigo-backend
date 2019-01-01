@@ -7,12 +7,11 @@ function sendMessage(code, text) {
 module.exports = {
 
   Query: {
-    user: (_, {id}, {dataSources}) => {
-      dataSources.userDS.getUserById(id)
-    },
+    user: (_, {id}, {dataSources}) =>  dataSources.userDS.getUserById(id),
+    userByToken: (_, {token}, {dataSources}) => dataSources.userDS.getUserByToken(token),
     trips: (_, __, {dataSources}) => {
       return [{origin: "Milan", destination: "Padova"}] // Stub for testing
-    } 
+    }
   },
 
   Mutation: {
@@ -21,7 +20,6 @@ module.exports = {
       if (user.existant) return sendMessage("NOK","User exists already");
       else if (!user) return sendMessage("NOK","Server problem");
       else return sendMessage("OK","User created !");
-
     },
     login: async(_, {email, password}, {dataSources}) => {
       const token = await dataSources.userDS.login(email, password);

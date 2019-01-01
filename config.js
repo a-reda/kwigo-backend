@@ -1,7 +1,7 @@
 
 const port = process.env.PORT || 4000;
 
-const db = process.env.KWIGO ? 'kwigo-mongo' : localhost;
+const db = process.env.KWIGO ? 'kwigo-mongo' : 'localhost';
 
 const dbHost = db+':27017';
 const dbName = 'kwigo'
