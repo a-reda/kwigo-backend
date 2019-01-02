@@ -15,10 +15,10 @@ module.exports = {
   },
 
   Mutation: {
-    createUser: async(_, {email, password}, {dataSources}) => {
-      const user = await dataSources.userDS.createUser(email, password);
-      if (user.existant) return sendMessage("NOK","User exists already");
-      else if (!user) return sendMessage("NOK","Server problem");
+    createUser: async(_, user, {dataSources}) => {
+      const res = await dataSources.userDS.createUser(user);
+      if (res.existant) return sendMessage("NOK","User exists already");
+      else if (!res) return sendMessage("NOK","Server problem");
       else return sendMessage("OK","User created !");
     },
     login: async(_, {email, password}, {dataSources}) => {

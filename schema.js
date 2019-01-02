@@ -9,6 +9,8 @@ type User {
   name: String
   email: String
   password: String
+  phone: String
+  car: String
 }
 
 type Trip {
@@ -32,7 +34,7 @@ type Query  {
 }
 
 type Mutation {
-  createUser(email: String!, password: String!): ServerMessage!
+  createUser(email: String!, password: String!, name: String!, car: String!, phone_number: String!): ServerMessage!
   login(email: String!, password: String!): ServerMessage!
 }
 `

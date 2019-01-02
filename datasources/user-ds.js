@@ -10,12 +10,13 @@ function getUserById(user_id) {
   return User.findOne({id: user_id})
 }
 
-function createUser(email, password) {
-  return User.findOne({email: email}).then((res) => {    // Look if user exists
+function createUser(user) {
+  return User.findOne({email: user.email}).then((res) => {    // Look if user exists
     if(res) return {existant: true};                     // If yes, return flag to resolver
     else { // Else create it
-      return bcrypt.hash(password, saltRounds).then((pwd) => {
-          return User.create({email: email, password: pwd});
+      return bcrypt.hash(user.password, saltRounds).then((pwd) => {
+          user.password = pwd
+          return User.create(user);
       });
     }
   });
