@@ -31,6 +31,7 @@ type Query  {
   userByToken(token: String): User
   trips: [Trip] @requireAuth
   me: User
+  _resolveCity(lat: Float, lon: Float): ServerMessage
 }
 
 type Mutation {

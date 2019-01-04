@@ -13,5 +13,6 @@ module.exports =  {
    dbUrl: `mongodb://${dbUser}:${dbPassword}@${dbHost}/${dbName}`,
    dbHost: dbHost,
    dbUser: dbUser,
-   dbPassword: dbPassword
+   dbPassword: dbPassword,
+   googleAPIKey: '***REMOVED***'
 }

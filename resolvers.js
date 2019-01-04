@@ -1,8 +1,6 @@
-
 function sendMessage(code, text) {
   return {code: code, text: text}
 }
-
 
 module.exports = {
 
@@ -11,7 +9,8 @@ module.exports = {
     userByToken: (_, {token}, {dataSources}) => dataSources.userDS.getUserByToken(token),
     trips: (_, __, {dataSources}) => {
       return [{origin: "Milan", destination: "Padova"}] // Stub for testing
-    }
+    },
+    _resolveCity: (_, {lat,lon}, {dataSources}) => dataSources.geoDS.getCityName(lat,lon)
   },
 
   Mutation: {
