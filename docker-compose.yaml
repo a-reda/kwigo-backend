@@ -6,7 +6,7 @@ services:
   mongo:
     image: mongo
     container_name: kwigo-mongo
-    # restart: always
+    restart: always
     ports:
       - 27017:27017
     environment:
@@ -16,7 +16,7 @@ services:
   mongo-express:
     image: mongo-express
     container_name: kwigo-mongo-express
-    # restart: always
+    restart: always
     ports:
       - 8081:8081
     environment:
@@ -27,6 +27,7 @@ services:
     image: bitnami/node
     container_name: kwigo-backend
     command: "sh -c 'npm install && node index.js'"
+    restart: always
     environment:
       - KWIGO=DOCKER
     volumes:
@@ -41,4 +42,4 @@ services:
        - TZ=Europe/Rome
        - SUBDOMAINS=camus
        - TOKEN=***REMOVED***
-     # restart: always
+     restart: always
