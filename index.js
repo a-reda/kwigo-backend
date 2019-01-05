@@ -12,6 +12,7 @@ const auth = require('./auth');
 // GraphQL datasources
 const userDS = require('./datasources/user-ds');
 const geoDS = require('./datasources/geo-ds');
+const tripDS = require('./datasources/trip-ds');
 const requireAuthDirective = require("./directives/requireAuthDirective");
 
 // MongoDB Connection
@@ -30,7 +31,8 @@ const server = new ApolloServer({
   },
   dataSources: () => ({
     userDS: userDS,
-    geoDS:  geoDS
+    geoDS:  geoDS,
+    tripDS: tripDS
   })
 });
 

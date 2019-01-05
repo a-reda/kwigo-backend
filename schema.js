@@ -14,11 +14,29 @@ type User {
 }
 
 type Trip {
-  origin: String
-  destination: String
+  origin: Place
+  destination: Place
   driver: User
-  spots: String
+  passengerCount: Int
+  price: Int
+  date: Int
   passengers: [User]
+}
+
+type Place {
+  city: String
+  latitude: Float
+  longitude: Float
+  address: String
+  name: String
+}
+
+input PlaceInput {
+  city: String!
+  latitude: Float!
+  longitude: Float!
+  address: String!
+  name: String!
 }
 
 type ServerMessage {
@@ -36,6 +54,7 @@ type Query  {
 
 type Mutation {
   createUser(email: String!, password: String!, name: String!, car: String!, phone_number: String!): ServerMessage!
+  createTrip(departure: PlaceInput, arrival: PlaceInput, passengersCount: Int, price: Int, date: Int): ServerMessage!
   login(email: String!, password: String!): ServerMessage!
 }
 `

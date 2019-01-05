@@ -24,6 +24,11 @@ module.exports = {
       const token = await dataSources.userDS.login(email, password);
       if (token.token) return sendMessage("TOKEN", token.token);
       else return sendMessage("UNAUTHORIZED", "Couldn't validate credentials "+token.msg);
+    },
+    createTrip: async(_, trip, {dataSources}) => {
+      const res = await dataSources.tripDS.createTrip(trip);
+      if (!res) return sendMessage("NOK", "Error");
+      else return sendMessage("OK", "Trip created");
       }
     }
 
