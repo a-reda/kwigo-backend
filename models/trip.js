@@ -17,6 +17,7 @@ var TripSchema = new mongoose.Schema({
   passengerCount: Number,
   price: Number,
   date: Number,
+  driver: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 
 },
 { collection: 'trips' }

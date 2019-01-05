@@ -14,12 +14,13 @@ type User {
 }
 
 type Trip {
-  origin: Place
-  destination: Place
+  id: ID
+  arrival: Place
+  departure: Place
   driver: User
   passengerCount: Int
   price: Int
-  date: Int
+  date: Float
   passengers: [User]
 }
 
@@ -47,14 +48,15 @@ type ServerMessage {
 type Query  {
   user(id: ID!): User
   userByToken(token: String): User
-  trips: [Trip] @requireAuth
   me: User
   _resolveCity(lat: Float, lon: Float): ServerMessage
+  searchTrips(departure: String!, arrival: String!): [Trip]
+  getMyTrips: [Trip] @requireAuth
 }
 
 type Mutation {
   createUser(email: String!, password: String!, name: String!, car: String!, phone_number: String!): ServerMessage!
-  createTrip(departure: PlaceInput, arrival: PlaceInput, passengersCount: Int, price: Int, date: Int): ServerMessage!
+  createTrip(departure: PlaceInput, arrival: PlaceInput, passengersCount: Int, price: Int, date: Float): ServerMessage! @requireAuth
   login(email: String!, password: String!): ServerMessage!
 }
 `

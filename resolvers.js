@@ -4,12 +4,18 @@ function sendMessage(code, text) {
 
 module.exports = {
 
+  Trip: {
+    id: (parent) => parent._id.toString(),
+    departure: (parent) => parent.departure,
+    arrival: (parent) => parent.arrival,
+    driver: (parent) => parent.driver
+  },
+
   Query: {
     user: (_, {id}, {dataSources}) =>  dataSources.userDS.getUserById(id),
     userByToken: (_, {token}, {dataSources}) => dataSources.userDS.getUserByToken(token),
-    trips: (_, __, {dataSources}) => {
-      return [{origin: "Milan", destination: "Padova"}] // Stub for testing
-    },
+    searchTrips: (_, {departure, arrival}, {dataSources}) => dataSources.tripDS.searchTrips(departure, arrival),
+    getMyTrips: (_, __, {dataSources, user}) => dataSources.tripDS.getMyTrips(user),
     _resolveCity: (_, {lat,lon}, {dataSources}) => dataSources.geoDS.getCityName(lat,lon)
   },
 
@@ -25,8 +31,8 @@ module.exports = {
       if (token.token) return sendMessage("TOKEN", token.token);
       else return sendMessage("UNAUTHORIZED", "Couldn't validate credentials "+token.msg);
     },
-    createTrip: async(_, trip, {dataSources}) => {
-      const res = await dataSources.tripDS.createTrip(trip);
+    createTrip: async(_, trip, {dataSources, user}) => {
+      const res = await dataSources.tripDS.createTrip(trip, user);
       if (!res) return sendMessage("NOK", "Error");
       else return sendMessage("OK", "Trip created");
       }
