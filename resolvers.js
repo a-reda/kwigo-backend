@@ -14,7 +14,7 @@ module.exports = {
   Query: {
     user: (_, {id}, {dataSources}) =>  dataSources.userDS.getUserById(id),
     userByToken: (_, {token}, {dataSources}) => dataSources.userDS.getUserByToken(token),
-    searchTrips: (_, {departure, arrival}, {dataSources}) => dataSources.tripDS.searchTrips(departure, arrival),
+    searchTrips: (_, {departure, arrival, date}, {dataSources}) => dataSources.tripDS.searchTrips(departure, arrival, date),
     getMyTrips: (_, __, {dataSources, user}) => dataSources.tripDS.getMyTrips(user),
     _resolveCity: (_, {lat,lon}, {dataSources}) => dataSources.geoDS.getCityName(lat,lon)
   },

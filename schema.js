@@ -50,7 +50,7 @@ type Query  {
   userByToken(token: String): User
   me: User
   _resolveCity(lat: Float, lon: Float): ServerMessage
-  searchTrips(departure: String!, arrival: String!): [Trip]
+  searchTrips(departure: String!, arrival: String!, date: Float!): [Trip]
   getMyTrips: [Trip] @requireAuth
 }
 
