@@ -39,8 +39,13 @@ function getMyTrips(user) {
   })
 }
 
+function findTripById(id) {
+  return Trip.findById(id);
+}
+
 module.exports = {
   createTrip: createTrip,
   searchTrips: searchTrips,
-  getMyTrips: getMyTrips
+  getMyTrips: getMyTrips,
+  findTripById: findTripById
 }

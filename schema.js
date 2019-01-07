@@ -51,6 +51,7 @@ type Query  {
   me: User
   _resolveCity(lat: Float, lon: Float): ServerMessage
   searchTrips(departure: String!, arrival: String!, date: Float!): [Trip]
+  findTripById(id: String!): Trip
   getMyTrips: [Trip] @requireAuth
 }
 
