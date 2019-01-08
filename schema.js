@@ -18,7 +18,7 @@ type Trip {
   arrival: Place
   departure: Place
   driver: User
-  passengerCount: Int
+  passengersCount: Int
   price: Int
   date: Float
   passengers: [User]
@@ -53,12 +53,14 @@ type Query  {
   searchTrips(departure: String!, arrival: String!, date: Float!): [Trip]
   findTripById(id: String!): Trip
   getMyTrips: [Trip] @requireAuth
+  registeredTrips: [Trip] @requireAuth
 }
 
 type Mutation {
   createUser(email: String!, password: String!, name: String!, car: String!, phone_number: String!): ServerMessage!
   createTrip(departure: PlaceInput, arrival: PlaceInput, passengersCount: Int, price: Int, date: Float): ServerMessage! @requireAuth
   login(email: String!, password: String!): ServerMessage!
+  register(tripId: String!): ServerMessage! @requireAuth
 }
 `
 

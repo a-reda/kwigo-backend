@@ -14,10 +14,12 @@ var TripSchema = new mongoose.Schema({
 
   departure: PlaceSchema,
   arrival: PlaceSchema,
-  passengerCount: Number,
+  passengersCount: Number,
   price: Number,
   date: Number,
-  driver: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
+  driver: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+  passengers: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
+  passengersS: [String]
 
 },
 { collection: 'trips' }
