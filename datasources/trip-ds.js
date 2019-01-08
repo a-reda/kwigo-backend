@@ -45,7 +45,7 @@ function getMyTrips(user) {
 }
 
 function findTripById(id) {
-  return Trip.findById(id).populate('driver');
+  return Trip.findById(id).populate('driver').populate('passengers');
 }
 
 function register(tripId, user) {
@@ -59,7 +59,7 @@ function register(tripId, user) {
       for (var i = 0; i < trip.passengers.length; i++) {
         flag = user._id.toString() == trip.passengers[i].toString();
       }
-      if(flag && false) return({code: "NOK", text: "Already registered"})
+      if(flag) return({code: "NOK", text: "Already registered"})
       else return Trip.updateOne(trip, { $push: { passengers: user }})
            .then((res) => ({code: "OK", text: "Passenger registered"}))
     }
