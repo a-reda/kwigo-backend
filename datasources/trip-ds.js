@@ -40,7 +40,7 @@ function getMyTrips(user) {
 }
 
 function findTripById(id) {
-  return Trip.findById(id);
+  return Trip.findById(id).populate('driver');
 }
 
 module.exports = {
