@@ -31,12 +31,12 @@ function searchTrips(departure, arrival, date) {
 }
 
 function registeredTrips(user) {
-  return Trip.find({passengers: user});
+  return Trip.find({passengers: user}).populate('driver').populate('passengers');
 }
 
 function getMyTrips(user) {
   return User.findOne({email: user.email}).then((res) => {
-    return Trip.find({driver: new ObjectId(res._id)}).populate('driver')
+    return Trip.find({driver: new ObjectId(res._id)}).populate('driver').populate('passengers');
   })
 }
 
@@ -108,7 +108,7 @@ function getPositions(tripId) {
             Redis.get(p._id.toString())
                 .then((res) => {
                   const f = res.split(",")
-                  return {latitude: f[0], longitude: f[0], userId: p._id.toString()}
+                  return {latitude: f[0], longitude: f[1], userId: p._id.toString()}
                 })
       ));
       return Promise.all(promises)
