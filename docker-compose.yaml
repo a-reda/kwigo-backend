@@ -35,6 +35,14 @@ services:
     ports:
       - 4000:4000
 
+  redis:
+    image: 'bitnami/redis:latest'
+    container_name: kwigo-redis
+    ports:
+      - '6379:6379'
+    environment:
+      - REDIS_PASSWORD=***REMOVED***
+
   duckdns:
      image: linuxserver/duckdns
      container_name: duckdns

@@ -32,6 +32,12 @@ type Place {
   name: String
 }
 
+type Position {
+  userId: String
+  latitude: Float
+  longitude: Float
+}
+
 input PlaceInput {
   city: String!
   latitude: Float!
@@ -54,6 +60,7 @@ type Query  {
   findTripById(id: String!): Trip
   getMyTrips: [Trip] @requireAuth
   registeredTrips: [Trip] @requireAuth
+  getPositions(tripId: String!): [Position]
 }
 
 type Mutation {

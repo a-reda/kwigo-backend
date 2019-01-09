@@ -96,6 +96,23 @@ function leaveTrip(tripId, user) {
   });
 }
 
+function getPositions(tripId) {
+  return Trip.findById(tripId).populate('passengers').then((trip) => {
+    if(!trip){
+      return null;
+    } else {
+      const passengers = trip.passengers.map( p => p._id.toString())
+      if (passengers.includes(user._id.toString())) {
+        return Trip.updateOne(trip, { $pull: { passengers: user._id.toString() }})
+             .then((res) => ({code: "OK", text: "Passenger removed from trip"}))
+             .catch((err) => ({code: "SERVER ERROR", text: err.toString()}))
+      } else {
+        return ({code: "NOK", text: "Not registered in the trip"})
+      }
+    }
+  });
+}
+
 module.exports = {
   createTrip: createTrip,
   searchTrips: searchTrips,

@@ -22,6 +22,7 @@ module.exports = {
     getMyTrips: (_, __, {dataSources, user}) => dataSources.tripDS.getMyTrips(user),
     registeredTrips: (_, __, {dataSources, user}) => dataSources.tripDS.registeredTrips(user),
     findTripById: (_, {id}, {dataSources}) => dataSources.tripDS.findTripById(id),
+    getPositions: (_, {tripId}, {dataSources}) => dataSources.tripDS.getPositions(tripId),
     _resolveCity: (_, {lat,lon}, {dataSources}) => dataSources.geoDS.getCityName(lat,lon)
   },
 
