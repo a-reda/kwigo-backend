@@ -4,6 +4,8 @@ var User = require('../models/user')
 
 var ObjectId = require('mongoose').Types.ObjectId;
 
+var Redis = require('./redis');
+
 function createTrip(trip, user) {
   trip.driver = user;
   return Trip.create(trip).catch((err) => console.log(err));
@@ -101,15 +103,23 @@ function getPositions(tripId) {
     if(!trip){
       return null;
     } else {
-      const passengers = trip.passengers.map( p => p._id.toString())
-      if (passengers.includes(user._id.toString())) {
-        return Trip.updateOne(trip, { $pull: { passengers: user._id.toString() }})
-             .then((res) => ({code: "OK", text: "Passenger removed from trip"}))
-             .catch((err) => ({code: "SERVER ERROR", text: err.toString()}))
-      } else {
-        return ({code: "NOK", text: "Not registered in the trip"})
-      }
+      var promises = [];
+      trip.passengers.forEach(p => promises.push(
+            Redis.get(p._id.toString())
+                .then((res) => {
+                  const f = res.split(",")
+                  return {latitude: f[0], longitude: f[0], userId: p._id.toString()}
+                })
+      ));
+      return Promise.all(promises)
     }
+  });
+}
+
+function setPosition(latitude, longitude, user) {
+  return Redis.set(user._id.toString(), `${latitude},${longitude}`)
+  .then((res) => {
+      return({code: res, text: res})
   });
 }
 
@@ -121,5 +131,7 @@ module.exports = {
   register: register,
   registeredTrips: registeredTrips,
   deleteTrip: deleteTrip,
-  leaveTrip: leaveTrip
+  leaveTrip: leaveTrip,
+  getPositions: getPositions,
+  setPosition: setPosition
 }

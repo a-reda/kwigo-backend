@@ -70,6 +70,8 @@ type Mutation {
   register(tripId: String!): ServerMessage! @requireAuth
   deleteTrip(tripId: String!): ServerMessage! @requireAuth
   leaveTrip(tripId: String!): ServerMessage! @requireAuth
+  setPosition(latitude: Float!, longitude: Float!): ServerMessage! @requireAuth
+
 }
 `
 

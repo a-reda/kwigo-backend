@@ -58,6 +58,11 @@ module.exports = {
       if (!res) return sendMessage("NOK", "Error");
       else return res;
     },
+    setPosition: async(_, {latitude, longitude}, {dataSources, user}) => {
+      const res = await dataSources.tripDS.setPosition(latitude, longitude, user);
+      if (!res) return sendMessage("NOK", "Error");
+      else return res;
+    }
     }
 
 }
