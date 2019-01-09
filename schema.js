@@ -61,6 +61,8 @@ type Mutation {
   createTrip(departure: PlaceInput, arrival: PlaceInput, passengersCount: Int, price: Int, date: Float): ServerMessage! @requireAuth
   login(email: String!, password: String!): ServerMessage!
   register(tripId: String!): ServerMessage! @requireAuth
+  deleteTrip(tripId: String!): ServerMessage! @requireAuth
+  leaveTrip(tripId: String!): ServerMessage! @requireAuth
 }
 `
 

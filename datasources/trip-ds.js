@@ -5,7 +5,6 @@ var User = require('../models/user')
 var ObjectId = require('mongoose').Types.ObjectId;
 
 function createTrip(trip, user) {
-  console.log(trip);
   trip.driver = user;
   return Trip.create(trip).catch((err) => console.log(err));
 }
@@ -16,15 +15,10 @@ function searchTrips(departure, arrival, date) {
     "arrival.city": new RegExp("^"+arrival+"$", "i")
   }).populate('driver')
     .then((trips) => {
-      console.log(trips.length)
-      console.log(date)
       const qd = new Date(date);
-      console.log(qd)
-      console.log(trips.length)
       var sameDate = [];
       trips.map((t) => {
         var rd = new Date(t.date)
-        console.log(rd, t.id, rd.getDate(), qd.getDate())
         if(rd.getDate() == qd.getDate() && rd.getMonth() == qd.getMonth() && rd.getYear() == qd.getYear()){
           sameDate.push(t)
         }
@@ -66,11 +60,49 @@ function register(tripId, user) {
   });
 }
 
+function deleteTrip(tripId, user) {
+  return Trip.findById(tripId).populate('driver').then((trip) => {
+    if(!trip){
+      return({code: "NOK", text: "Trip not found"})
+    } else if(trip.driver._id.toString() != user._id.toString()) {
+      return({code: "NOK", text: "You can only modify your trips"})
+    } else {
+      return Trip.deleteOne(trip)
+            .then((res) => {
+                console.log(res);
+                return({code: "OK", text: "Trip deleted"})
+            }).catch((err) => {
+                console.log(err);
+                return({code: "SERVER ERROR", text: "Server error"})
+            });
+    }
+  });
+}
+
+function leaveTrip(tripId, user) {
+  return Trip.findById(tripId).populate('passengers').then((trip) => {
+    if(!trip){
+      return({code: "NOK", text: "Trip not found"})
+    } else {
+      const passengers = trip.passengers.map( p => p._id.toString())
+      if (passengers.includes(user._id.toString())) {
+        return Trip.updateOne(trip, { $pull: { passengers: user._id.toString() }})
+             .then((res) => ({code: "OK", text: "Passenger removed from trip"}))
+             .catch((err) => ({code: "SERVER ERROR", text: err.toString()}))
+      } else {
+        return ({code: "NOK", text: "Not registered in the trip"})
+      }
+    }
+  });
+}
+
 module.exports = {
   createTrip: createTrip,
   searchTrips: searchTrips,
   getMyTrips: getMyTrips,
   findTripById: findTripById,
   register: register,
-  registeredTrips: registeredTrips
+  registeredTrips: registeredTrips,
+  deleteTrip: deleteTrip,
+  leaveTrip: leaveTrip
 }

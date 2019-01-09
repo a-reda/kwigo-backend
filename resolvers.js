@@ -46,7 +46,17 @@ module.exports = {
       const res = await dataSources.tripDS.register(tripId, user);
       if (!res) return sendMessage("NOK", "Error");
       else return res;
-      }
+    },
+    leaveTrip: async(_, {tripId}, {dataSources, user}) => {
+      const res = await dataSources.tripDS.leaveTrip(tripId, user);
+      if (!res) return sendMessage("NOK", "Error");
+      else return res;
+    },
+    deleteTrip: async(_, {tripId}, {dataSources, user}) => {
+      const res = await dataSources.tripDS.deleteTrip(tripId, user);
+      if (!res) return sendMessage("NOK", "Error");
+      else return res;
+    },
     }
 
 }
