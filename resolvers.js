@@ -11,6 +11,10 @@ module.exports = {
     driver: (parent) => parent.driver
   },
 
+  User: {
+    id: (parent) => parent._id.toString()
+  },
+
   Query: {
     user: (_, {id}, {dataSources}) =>  dataSources.userDS.getUserById(id),
     userByToken: (_, {token}, {dataSources}) => dataSources.userDS.getUserByToken(token),
