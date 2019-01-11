@@ -99,19 +99,24 @@ function leaveTrip(tripId, user) {
 }
 
 function getPositions(tripId) {
-  return Trip.findById(tripId).populate('passengers').then((trip) => {
+  return Trip.findById(tripId).populate('passengers').populate('driver').then((trip) => {
     if(!trip){
       return null;
     } else {
       var promises = [];
+      trip.passengers.push(trip.driver)
       trip.passengers.forEach(p => promises.push(
             Redis.get(p._id.toString())
                 .then((res) => {
-                  const f = res.split(",")
-                  return {latitude: f[0], longitude: f[1], userId: p._id.toString()}
+                  if (res) {
+                    const f = res.split(",")
+                    return {latitude: f[0], longitude: f[1], userId: p._id.toString()};
+                  } else {
+                    return null;
+                  }
                 })
       ));
-      return Promise.all(promises)
+      return Promise.all(promises).then((arr) => (arr.filter(e => e!= null)))
     }
   });
 }
