@@ -7,7 +7,7 @@ var User = require('../models/user')
 var Token = require('../models/token')
 
 function getUserById(user_id) {
-  return User.findOne({id: user_id})
+  return User.findOne({_id: user_id}).catch((err) => null)
 }
 
 function createUser(user) {
