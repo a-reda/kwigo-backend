@@ -33,7 +33,7 @@ services:
     volumes:
       - ./:/app
     ports:
-      - 4000:4000
+      - 80:4000
 
   redis:
     image: 'bitnami/redis:latest'
