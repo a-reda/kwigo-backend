@@ -33,6 +33,11 @@ module.exports = {
       else if (!res) return sendMessage("NOK","Server problem");
       else return sendMessage("OK","User created !");
     },
+    updateUser: async(_, modifs, {dataSources, user}) => {
+      const res = await dataSources.userDS.updateUser(user, modifs);
+      if (!res) return sendMessage("NOK","Server problem");
+      else return sendMessage("OK","User modified");
+    },
     login: async(_, {email, password}, {dataSources}) => {
       const token = await dataSources.userDS.login(email, password);
       if (token.token) return sendMessage("TOKEN", token.token);

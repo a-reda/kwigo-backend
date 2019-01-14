@@ -22,6 +22,10 @@ function createUser(user) {
   });
 }
 
+function updateUser(user, modifs) {
+  return User.updateOne({_id: user._id}, {$set: modifs})
+}
+
 function getUserByToken(token) {
   return Token.findOne({token: token}).then((res) => {
     if(res) return User.findOne({email: res.email});
@@ -61,6 +65,7 @@ module.exports = {
   getUserById: getUserById,
   getUserByToken: getUserByToken,
   createUser:  createUser,
+  updateUser:  updateUser,
   login: login
 
 }

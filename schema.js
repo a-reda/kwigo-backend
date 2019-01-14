@@ -65,6 +65,7 @@ type Query  {
 
 type Mutation {
   createUser(email: String!, password: String!, name: String!, car: String!, phone_number: String!): ServerMessage!
+  updateUser(car: String, phone_number: String): ServerMessage @requireAuth
   createTrip(departure: PlaceInput, arrival: PlaceInput, passengersCount: Int, price: Int, date: Float): ServerMessage! @requireAuth
   login(email: String!, password: String!): ServerMessage!
   register(tripId: String!): ServerMessage! @requireAuth
