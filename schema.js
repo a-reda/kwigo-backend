@@ -9,7 +9,7 @@ type User {
   name: String
   email: String
   password: String
-  phone: String
+  phone_number: String
   car: String
 }
 
