@@ -42,7 +42,7 @@ services:
     ports:
       - '6379:6379'
     environment:
-      - REDIS_PASSWORD=***REMOVED***
+      - REDIS_PASSWORD=REDIS_PASSWORD
 
   duckdns:
      image: linuxserver/duckdns
@@ -50,5 +50,5 @@ services:
      environment:
        - TZ=Europe/Rome
        - SUBDOMAINS=camus
-       - TOKEN=***REMOVED***
+       - TOKEN=DUCK_DNS_TOKEN
      restart: always
